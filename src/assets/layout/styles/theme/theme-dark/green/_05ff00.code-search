@@ -1,0 +1,350 @@
+# Query: #05ff00
+# ContextLines: 1
+
+97 results - 1 file
+
+src\assets\layout\styles\theme\theme-dark\green\theme.css:
+   254  .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
+   255:   border-color: #078985;
+   256  }
+
+   260    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+   261:   border-color: #078985;
+   262  }
+
+   402  .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:enabled:hover {
+   403:   color: #078985;
+   404  }
+
+   439    background: transparent;
+   440:   color: #078985;
+   441    border-color: transparent;
+
+   576  .p-cascadeselect:not(.p-disabled):hover {
+   577:   border-color: #078985;
+   578  }
+
+   582    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+   583:   border-color: #078985;
+   584  }
+
+   700  .p-checkbox .p-checkbox-box.p-highlight {
+   701:   border-color: #078985;
+   702:   background: #078985;
+   703  }
+   704  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+   705:   border-color: #078985;
+   706  }
+
+   710    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+   711:   border-color: #078985;
+   712  }
+
+   726  .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
+   727:   background: #078985;
+   728  }
+
+   744  .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
+   745:   border-color: #078985;
+   746  }
+
+   750    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+   751:   border-color: #078985;
+   752  }
+
+   810  .p-dropdown:not(.p-disabled):hover {
+   811:   border-color: #078985;
+   812  }
+
+   816    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+   817:   border-color: #078985;
+   818  }
+
+   999  .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected {
+  1000:   color: #078985;
+  1001  }
+
+  1004  .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke {
+  1005:   stroke: #078985;
+  1006  }
+
+  1009  .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill {
+  1010:   fill: #078985;
+  1011  }
+
+  1014  .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-picker-label {
+  1015:   color: #078985;
+  1016  }
+
+  1152  .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  1153:   background: #078985;
+  1154  }
+
+  1177  .p-inputtext:enabled:hover {
+  1178:   border-color: #078985;
+  1179  }
+
+  1183    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+  1184:   border-color: #078985;
+  1185  }
+
+  1343  .p-multiselect:not(.p-disabled):hover {
+  1344:   border-color: #078985;
+  1345  }
+
+  1349    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+  1350:   border-color: #078985;
+  1351  }
+
+  1547  .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  1548:   border-color: #078985;
+  1549  }
+
+  1553    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+  1554:   border-color: #078985;
+  1555  }
+
+  1562  .p-radiobutton .p-radiobutton-box.p-highlight {
+  1563:   border-color: #078985;
+  1564:   background: #078985;
+  1565  }
+
+  1582  .p-input-filled .p-radiobutton .p-radiobutton-box.p-highlight {
+  1583:   background: #078985;
+  1584  }
+
+  1617  .p-rating .p-rating-icon.p-rating-icon-active {
+  1618:   color: #078985;
+  1619  }
+  1620  .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {
+  1621:   color: #078985;
+  1622  }
+
+  1646  .p-selectbutton .p-button.p-highlight {
+  1647:   background: #078985;
+  1648:   border-color: #078985;
+  1649    color: #1c2127;
+
+  1691    background: #2a2e34;
+  1692:   border: 2px solid #078985;
+  1693    border-radius: 50%;
+
+  1701  .p-slider .p-slider-range {
+  1702:   background: #078985;
+  1703  }
+  1704  .p-slider:not(.p-disabled) .p-slider-handle:hover {
+  1705:   background: #078985;
+  1706:   border-color: #078985;
+  1707  }
+
+  1740  .p-togglebutton.p-button.p-highlight {
+  1741:   background: #078985;
+  1742:   border-color: #078985;
+  1743    color: #1c2127;
+
+  1769  .p-treeselect:not(.p-disabled):hover {
+  1770:   border-color: #078985;
+  1771  }
+
+  1775    box-shadow: 0 0 0 0.2rem rgba(110, 231, 183, 0.5);
+  1776:   border-color: #078985;
+  1777  }
+
+  1887    color: #1c2127;
+  1888:   background: #078985;
+  1889:   border: 1px solid #078985;
+  1890    padding: 0.75rem 1.25rem;
+
+  1906    background-color: transparent;
+  1907:   color: #078985;
+  1908    border: 1px solid;
+
+  1911    background: rgba(110, 231, 183, 0.04);
+  1912:   color: #078985;
+  1913    border: 1px solid;
+
+  1916    background: rgba(110, 231, 183, 0.16);
+  1917:   color: #078985;
+  1918    border: 1px solid;
+
+  1933    background-color: transparent;
+  1934:   color: #078985;
+  1935    border-color: transparent;
+
+  1938    background: rgba(110, 231, 183, 0.04);
+  1939:   color: #078985;
+  1940    border-color: transparent;
+
+  1943    background: rgba(110, 231, 183, 0.16);
+  1944:   color: #078985;
+  1945    border-color: transparent;
+
+  1982    line-height: 1rem;
+  1983:   color: #078985;
+  1984    background-color: #1c2127;
+
+  2332  .p-button.p-button-link {
+  2333:   color: #078985;
+  2334    background: transparent;
+
+  2338    background: transparent;
+  2339:   color: #078985;
+  2340    border-color: transparent;
+
+  2351    background: transparent;
+  2352:   color: #078985;
+  2353    border-color: transparent;
+
+  2428    background-color: transparent;
+  2429:   color: #078985;
+  2430    border: 1px solid;
+
+  2433    background: rgba(110, 231, 183, 0.04);
+  2434:   color: #078985;
+  2435  }
+
+  2437    background: rgba(110, 231, 183, 0.16);
+  2438:   color: #078985;
+  2439  }
+
+  2453    background-color: transparent;
+  2454:   color: #078985;
+  2455    border-color: transparent;
+
+  2458    background: rgba(110, 231, 183, 0.04);
+  2459:   color: #078985;
+  2460    border-color: transparent;
+
+  2463    background: rgba(110, 231, 183, 0.16);
+  2464:   color: #078985;
+  2465    border-color: transparent;
+
+  2862  .p-datatable .p-column-resizer-helper {
+  2863:   background: #078985;
+  2864  }
+
+  3168    color: #1c2127;
+  3169:   background: #078985;
+  3170:   border: 1px solid #078985;
+  3171    font-size: 1rem;
+
+  3224  .fc.fc-unthemed .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active {
+  3225:   background: #078985;
+  3226:   border-color: #078985;
+  3227    color: #1c2127;
+
+  3332    color: #1c2127;
+  3333:   background: #078985;
+  3334:   border: 1px solid #078985;
+  3335    font-size: 1rem;
+
+  3356    color: #1c2127;
+  3357:   background: #078985;
+  3358:   border: 1px solid #078985;
+  3359  }
+
+  3392  .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active {
+  3393:   background: #078985;
+  3394:   border-color: #078985;
+  3395    color: #1c2127;
+
+  3708  .p-timeline .p-timeline-event-marker {
+  3709:   border: 2px solid #078985;
+  3710    border-radius: 50%;
+
+  4001  .p-treetable .p-column-resizer-helper {
+  4002:   background: #078985;
+  4003  }
+
+  4344    background: #161a1f;
+  4345:   border-color: #078985;
+  4346    color: rgba(255, 255, 255, 0.87);
+
+  4349    background: #161a1f;
+  4350:   border-color: #078985;
+  4351:   color: #078985;
+  4352  }
+
+  4363    background: #161a1f;
+  4364:   color: #078985;
+  4365    width: 3rem;
+
+  4525  .p-overlaypanel .p-overlaypanel-close {
+  4526:   background: #078985;
+  4527    color: #1c2127;
+
+  4772  .p-contextmenu .p-menuitem-badge {
+  4773:   background: #078985;
+  4774    color: #1c2127;
+
+  4986  .p-megamenu .p-menuitem-badge {
+  4987:   background: #078985;
+  4988    color: #1c2127;
+
+  5066  .p-menu .p-menuitem-badge {
+  5067:   background: #078985;
+  5068    color: #1c2127;
+
+  5205  .p-menubar .p-menuitem-badge {
+  5206:   background: #078985;
+  5207    color: #1c2127;
+
+  5436  .p-panelmenu .p-menuitem-badge {
+  5437:   background: #078985;
+  5438    color: #1c2127;
+
+  5527  .p-slidemenu .p-menuitem-badge {
+  5528:   background: #078985;
+  5529    color: #1c2127;
+
+  5591  .p-tabmenu .p-tabmenu-nav .p-menuitem-badge {
+  5592:   background: #078985;
+  5593    color: #1c2127;
+
+  5629    background: #161a1f;
+  5630:   border-color: #078985;
+  5631    color: rgba(255, 255, 255, 0.87);
+
+  5634    background: #161a1f;
+  5635:   border-color: #078985;
+  5636:   color: #078985;
+  5637  }
+
+  5645    background: #161a1f;
+  5646:   color: #078985;
+  5647    width: 3rem;
+
+  5736  .p-tieredmenu .p-menuitem-badge {
+  5737:   background: #078985;
+  5738    color: #1c2127;
+
+  6152  .p-badge {
+  6153:   background: #078985;
+  6154    color: #1c2127;
+
+  6250    margin: 0;
+  6251:   background: #078985;
+  6252  }
+
+  6288  .p-tag {
+  6289:   background: #078985;
+  6290    color: #1c2127;
+
+  6348    height: 2px;
+  6349:   background-color: #078985;
+  6350    transition: 500ms cubic-bezier(0.35, 0, 0.25, 1);
+
+  6353  .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  6354:   background-color: #078985;
+  6355  }
+
+  6357  .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
+  6358:   background-color: #078985;
+  6359  }
+
+  6383  .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
+  6384:   box-shadow: inset 0 2px 0 0 #078985;
+  6385  }
+  6386  .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
+  6387:   box-shadow: inset 0 -2px 0 0 #078985;
+  6388  }
