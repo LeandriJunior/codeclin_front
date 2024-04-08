@@ -9,16 +9,47 @@ import listPlugin from '@fullcalendar/list';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { DialogModule } from 'primeng/dialog';
 import ptLocale from "@fullcalendar/core/locales/pt";
+
+import { DropdownModule } from 'primeng/dropdown';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { items } from 'src/app/shared/models/items.model';
+
+
 @Component({
   selector: 'app-home-agenda',
   standalone: true,
-  imports: [[CommonModule, RouterOutlet, FullCalendarModule]],
+  imports: [[ CommonModule, 
+              RouterOutlet, 
+              FullCalendarModule, 
+              DialogModule,
+              DropdownModule]],
   templateUrl: './home-agenda.component.html',
   styleUrl: './home-agenda.component.css',
 })
 export class HomeAgendaComponent{
+  formularioCadastroAgenda: FormGroup;
+  lista_funcionario: Array<items> = [];
+
+  constructor(private changeDetector: ChangeDetectorRef,
+              private formBuilder: FormBuilder,
+  ) {
+    this.formularioCadastroAgenda = this.formBuilder.group({
+      agenda_id: [null],
+      datetime_ini: [null],
+      datetime_fim: [null],
+      funcionario: [null],
+      cliente: [null],
+      descricao: [null],
+    })
+  }
+
+  visible: boolean = false;
+
+  showDialog() {
+      this.visible = true;
+  }
   
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
@@ -53,8 +84,7 @@ export class HomeAgendaComponent{
   });
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef) {
-  }
+  
 
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
@@ -68,7 +98,8 @@ export class HomeAgendaComponent{
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
+    this.showDialog()
+    const title = ''
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
