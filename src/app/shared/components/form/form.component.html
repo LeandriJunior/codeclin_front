@@ -284,6 +284,16 @@
     <small class="invalid" *ngIf="erro && !formGroup?.get(formControlName)?.valid && formGroup?.get(formControlName)?.touched">{{ erro }}</small>
   </div>
 
+  <div *ngIf="type === 'date-time'">
+    <p-calendar [formControlName]="formControlName"
+      [showIcon]="true" dateFormat="dd/mm/yy" dataType="string" appendTo="body"
+      [showTime]="true" [showSeconds]="true"
+      (onClose)="onBlurHandler($event)" [readonlyInput]="readonly ?? false"
+      [ngClass]="{'ng-invalid ng-dirty': !formGroup?.get(formControlName)?.valid && formGroup?.get(formControlName)?.touched }"
+      [minDate]="minDate ?? ''" [maxDate]="maxDate ?? ''"></p-calendar>
+    <small class="invalid" *ngIf="erro && !formGroup?.get(formControlName)?.valid && formGroup?.get(formControlName)?.touched">{{ erro }}</small>
+  </div>
+
   <div *ngIf="type === 'date-manual'">
     <p-inputMask [formControlName]="formControlName"
       mask="99/99/9999" [placeholder]="placeholder ?? ''" [autoClear]="autoClear ?? true" [readonly]="readonly ?? false"

@@ -19,9 +19,8 @@ export const INITIAL_EVENTS: EventInput[] = [
   },
   {
     id: createEventId(),
-    title: 'Timed event',
-    description: 'Implante com dente podre',
-    doctor: 'Sergio',
+    title: 'Leandri Albert Wagner Junior',
+    color: '#ffa58e',
     start: TODAY_STR + 'T12:00:00',
     end: TODAY_STR + 'T15:00:00'
   }

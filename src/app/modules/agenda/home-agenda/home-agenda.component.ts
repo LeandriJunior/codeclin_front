@@ -9,12 +9,14 @@ import listPlugin from '@fullcalendar/list';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DialogModule } from 'primeng/dialog';
 import ptLocale from "@fullcalendar/core/locales/pt";
-
-import { DropdownModule } from 'primeng/dropdown';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { items } from 'src/app/shared/models/items.model';
+import { FormModule } from 'src/app/shared/components/form/form.module';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import * as dayjs from 'dayjs'
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
@@ -22,9 +24,13 @@ import { items } from 'src/app/shared/models/items.model';
   standalone: true,
   imports: [[ CommonModule, 
               RouterOutlet, 
-              FullCalendarModule, 
+              FullCalendarModule,
+              ReactiveFormsModule,
+              FormModule,
               DialogModule,
-              DropdownModule]],
+              DropdownModule,
+              ButtonModule,
+              ]],
   templateUrl: './home-agenda.component.html',
   styleUrl: './home-agenda.component.css',
 })
@@ -39,22 +45,34 @@ export class HomeAgendaComponent{
       agenda_id: [null],
       datetime_ini: [null],
       datetime_fim: [null],
-      funcionario: [null],
+      funcionario_agendamento: [null],
       cliente: [null],
+      dentista: [null],
       descricao: [null],
     })
   }
 
   visible: boolean = false;
 
-  showDialog() {
+  dayjs = dayjs
+
+  showDialog(comprimisso_id, data_ini, data_fim) {
+      console.log(data_ini, data_fim)
+      console.log(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
+      console.log(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
+      this.formularioCadastroAgenda.get('datetime_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
+      this.formularioCadastroAgenda.get('datetime_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
       this.visible = true;
   }
   
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
+    timeZone: 'UTC-3',
     locale: 'pt-br',
     locales: [ptLocale],
+    slotDuration: '00:15:00',
+    slotMinTime: '08:00:00',
+    slotMaxTime: '20:15:00',
     plugins: [
       interactionPlugin,
       dayGridPlugin,
@@ -62,14 +80,15 @@ export class HomeAgendaComponent{
       listPlugin,
     ],
     headerToolbar: {
-      left: 'prev,next',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      left: 'title,listWeek',
+      center: '',
+      right: 'prev,today,next,dayGridMonth,timeGridWeek,timeGridDay'
     },
     initialView: 'timeGridWeek',
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
+    height:'80vh',
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
@@ -98,7 +117,7 @@ export class HomeAgendaComponent{
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    this.showDialog()
+    this.showDialog('', selectInfo.startStr, selectInfo.endStr)
     const title = ''
     const calendarApi = selectInfo.view.calendar;
 
@@ -116,9 +135,8 @@ export class HomeAgendaComponent{
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    console.log(clickInfo.event.id)
+    this.showDialog(clickInfo.event.id, clickInfo.event.startStr, clickInfo.event.endStr)
   }
 
   handleEvents(events: EventApi[]) {
@@ -126,5 +144,8 @@ export class HomeAgendaComponent{
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
 
+  onSubmit(){
+    console.log(this.formularioCadastroAgenda.value)
+  }
   
 }

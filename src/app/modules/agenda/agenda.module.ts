@@ -6,6 +6,8 @@ import { AgendaComponent } from './agenda.component';
 import { HomeAgendaComponent } from './home-agenda/home-agenda.component';
 import {TabViewModule} from 'primeng/tabview';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 @NgModule({
     declarations: [
       
@@ -16,7 +18,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AgendaComponent,
     HomeAgendaComponent,
     TabViewModule,
-    FullCalendarModule
+    FullCalendarModule,
+    
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
