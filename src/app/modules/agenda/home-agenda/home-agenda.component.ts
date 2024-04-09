@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import * as dayjs from 'dayjs'
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 
 @Component({
@@ -30,6 +31,7 @@ import { ButtonModule } from 'primeng/button';
               DialogModule,
               DropdownModule,
               ButtonModule,
+              CardModule,
               ]],
   templateUrl: './home-agenda.component.html',
   styleUrl: './home-agenda.component.css',
@@ -80,9 +82,9 @@ export class HomeAgendaComponent{
       listPlugin,
     ],
     headerToolbar: {
-      left: 'title,listWeek',
-      center: '',
-      right: 'prev,today,next,dayGridMonth,timeGridWeek,timeGridDay'
+      left: 'listWeek',
+      center: 'title',
+      right: 'prev,next,timeGridWeek,timeGridDay'
     },
     initialView: 'timeGridWeek',
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed

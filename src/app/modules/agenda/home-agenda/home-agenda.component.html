@@ -1,22 +1,23 @@
+<p-card [style]="{ height: '98%'}"  >
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <div class='demo-app' style="width: 90vw; height: 60vh;">
 
-<div style="display: flex; align-items: center; justify-content: center;">
-  <div class='demo-app' style="width: 90vw; height: 60vh;">
-
-    <div class='demo-app-sidebar'>
+      <div class='demo-app-sidebar'>
+      </div>
+    
+      <div class='demo-app-main'>
+        <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.timeText }}</b> <br/>
+            <i>{{ arg.event.title }}</i>
+            <span>{{ arg.event.description }}</span>
+          </ng-template>
+        </full-calendar>
+      </div>
+    
     </div>
-  
-    <div class='demo-app-main'>
-      <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
-        <ng-template #eventContent let-arg>
-          <b>{{ arg.timeText }}</b> <br/>
-          <i>{{ arg.event.title }}</i>
-          <span>{{ arg.event.description }}</span>
-        </ng-template>
-      </full-calendar>
-    </div>
-  
   </div>
-</div>
+</p-card>
 
 <p-dialog header="Header" footer="Footer" [(visible)]="visible" [modal]="true" [style]="{ width: '70rem' }" [breakpoints]="{ '1199px': '80vw', '575px': '90vw' }">
   <ng-template pTemplate="header">
