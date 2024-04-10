@@ -79,6 +79,13 @@ export class HomeAgendaComponent{
     timeZone: 'UTC-3',
     locale: 'pt-br',
     locales: [ptLocale],
+    slotLabelFormat: {
+      hour: '2-digit', // Formato de exibição das horas (ex: 01, 02, ..., 12)
+      minute: '2-digit', // Formato de exibição dos minutos (ex: 00, 15, 30, 45)
+      omitZeroMinute: false, // Define se deve omitir os minutos quando eles são zero (ex: mostrar 08:00 ou 08:30 em vez de 08)
+      meridiem: 'short' // Formato de exibição do meridiano (AM/PM)
+    },
+    slotLabelInterval: 15,
     slotDuration: '00:15:00',
     slotMinTime: '08:00:00',
     slotMaxTime: '20:15:00',
