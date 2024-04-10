@@ -22,4 +22,11 @@ export class AgendaService {
             params: dados
           });
     }
+
+    getEvento(dados){
+        return this.http.get<any>(`${this.API_BACK}clinica/agenda/evento`, {
+            headers: this.headerService.getHeader(),
+            params: dados
+          });
+    }
 }

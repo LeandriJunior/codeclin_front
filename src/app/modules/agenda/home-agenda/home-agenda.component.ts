@@ -67,7 +67,7 @@ export class HomeAgendaComponent{
   visible: boolean = false;
 
   dayjs = dayjs
-  showDialog(comprimisso_id, data_ini, data_fim) {
+  showDialog(dados, data_ini, data_fim) {
      
       this.formularioCadastroAgenda.get('datetime_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
       this.formularioCadastroAgenda.get('datetime_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
@@ -159,7 +159,17 @@ export class HomeAgendaComponent{
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    this.showDialog(clickInfo.event.id, clickInfo.event.startStr, clickInfo.event.endStr)
+    var retorno;
+    this.agendaService.getEvento({'evento_id': clickInfo.event.id}).subscribe(
+      dados => {
+        if (dados.status){
+          retorno = dados.evento
+        }else{
+          this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
+        }
+      });
+      this.showDialog(retorno, clickInfo.event.startStr, clickInfo.event.endStr, )
+      
   }
   handleEventsResize(event: EventApi){
     console.log(event)
@@ -183,7 +193,6 @@ export class HomeAgendaComponent{
     console.log(dados)
     this.agendaService.getEventosAgenda(dados).subscribe(
       dados => {
-       
         if (dados.status){
           this.calendarOptions.update((options) => ({
             ...options,
