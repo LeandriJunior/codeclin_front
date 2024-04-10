@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, forwardRef, signal } from '@angular/core';
 import { AgendaService } from '../agenda.service';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, DatesSetArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -18,6 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import * as dayjs from 'dayjs'
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ToastrService } from 'src/app/shared/components/toastr/toastr.service';
+
 
 
 @Component({
@@ -37,12 +39,18 @@ import { CardModule } from 'primeng/card';
   styleUrl: './home-agenda.component.css',
 })
 export class HomeAgendaComponent{
+  data_ini_agenda: any 
+  data_fim_agenda: any
   formularioCadastroAgenda: FormGroup;
+  eventos_agenda:any = [];
   lista_funcionario: Array<items> = [];
 
-  constructor(private changeDetector: ChangeDetectorRef,
-              private formBuilder: FormBuilder,
-  ) {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
+    private agendaService: AgendaService,
+    private toastrService: ToastrService,
+  ){
     this.formularioCadastroAgenda = this.formBuilder.group({
       agenda_id: [null],
       datetime_ini: [null],
@@ -54,14 +62,13 @@ export class HomeAgendaComponent{
     })
   }
 
+ 
+
   visible: boolean = false;
 
   dayjs = dayjs
-
   showDialog(comprimisso_id, data_ini, data_fim) {
-      console.log(data_ini, data_fim)
-      console.log(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
-      console.log(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
+     
       this.formularioCadastroAgenda.get('datetime_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
       this.formularioCadastroAgenda.get('datetime_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
       this.visible = true;
@@ -87,16 +94,19 @@ export class HomeAgendaComponent{
       right: 'prev,next,timeGridWeek,timeGridDay'
     },
     initialView: 'timeGridWeek',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    initialEvents: this.eventos_agenda, // alternatively, use the `events` setting to fetch from a feed
+    events: this.eventos_agenda,
     weekends: true,
     editable: true,
     height:'80vh',
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    datesSet: this.handleDatesSet.bind(this),
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
+    eventsSet: this.handleEvents.bind(this),
+    eventDisplay: this.handleEventsResize.bind(this),
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -105,12 +115,17 @@ export class HomeAgendaComponent{
   });
   currentEvents = signal<EventApi[]>([]);
 
-  
+  handleDatesSet(events: DatesSetArg) {
+    this.data_ini_agenda = this.dayjs(events.startStr).format('DD/MM/YYYY HH:mm:ss');
+    this.data_fim_agenda = this.dayjs(events.endStr).format('DD/MM/YYYY HH:mm:ss');
+    this.getDadosAgenda(this.data_ini_agenda, this.data_fim_agenda)
+
+  }
 
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
   }
-
+  
   handleWeekendsToggle() {
     this.calendarOptions.update((options) => ({
       ...options,
@@ -137,11 +152,14 @@ export class HomeAgendaComponent{
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log(clickInfo.event.id)
     this.showDialog(clickInfo.event.id, clickInfo.event.startStr, clickInfo.event.endStr)
+  }
+  handleEventsResize(event: EventApi){
+    console.log(event)
   }
 
   handleEvents(events: EventApi[]) {
+    
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
@@ -149,5 +167,25 @@ export class HomeAgendaComponent{
   onSubmit(){
     console.log(this.formularioCadastroAgenda.value)
   }
+
+  getDadosAgenda(data_ini:any, data_fim:any){
+    var dados = {
+      'data_ini':data_ini,
+      'data_fim': data_fim
+    }
+    console.log(dados)
+    this.agendaService.getEventosAgenda(dados).subscribe(
+      dados => {
+       
+        if (dados.status){
+          this.calendarOptions.update((options) => ({
+            ...options,
+            events: dados.agenda,
+          }));
+        }else{
+          this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
+        }
+      });
+    }
   
 }
