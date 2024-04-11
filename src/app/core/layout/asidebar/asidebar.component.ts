@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { title } from "../../ts/util";
 import { MenuService } from '../menu/app.menu.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
     selector: 'app-main-asidebar',
@@ -52,7 +53,8 @@ export class AppAsideComponent implements OnInit, OnDestroy {
 
   constructor(public layoutService: LayoutService,
               private route: ActivatedRoute,
-              private menuService: MenuService) { }
+              private menuService: MenuService,
+              private tokenService:TokenService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(dados => {
@@ -63,11 +65,12 @@ export class AppAsideComponent implements OnInit, OnDestroy {
       }
       this.tipoDescritivo = title(this.tipo)
     })
+    this.funcionario = this.tokenService.getSessaoUsuario()?.usuario?.nm_completo
 
+    console.log(this.funcionario)
     this.dataAtual = this.dayjs().format('DD/MM/YYYY')
     
     this.sessaoMenus = this.menuService.getSessaoMenus()
-
     if (this.sessaoMenus) {
       if (this.dayjs().isAfter(this.dayjs(this.sessaoMenus?.expire))) {
         this.buscarMenus();
@@ -85,6 +88,10 @@ export class AppAsideComponent implements OnInit, OnDestroy {
         sub.unsubscribe()
       }
     }
+  }
+
+  logout(){
+    this.tokenService.logout()
   }
 
   buscarMenus(): void {

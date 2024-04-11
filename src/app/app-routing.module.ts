@@ -13,15 +13,15 @@ const APP_ROUTES: Routes = [
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'agenda/home',
     pathMatch: 'full'
   },
   {
     path: '',
     component: AppLayoutComponent,
     data: { animationState: 'AppLayoutComponent' },
-    // canLoad: [AutenticacaoGuard],
-    // canActivateChild: [AutenticacaoGuard],
+    canLoad: [AutenticacaoGuard],
+    canActivateChild: [AutenticacaoGuard],
     children: [
       {
         path: '403',
@@ -53,7 +53,7 @@ const APP_ROUTES: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'login',
     data: { animationState: 'FullPath' },
   },
 ];

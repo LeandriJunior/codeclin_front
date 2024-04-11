@@ -11,16 +11,9 @@ export class AutenticacaoGuard  {
 
   private verificacaoLogin(): boolean {
 
-    return true;
-
     const token = this.tokenService.getToken();
-
     if (token) {
-      const date = new Date();
-      const datetoken = new Date(token.expire);
-      if (datetoken > date) {
-        return true;
-      }
+      return true
     }
 
     this.tokenService.clearToken();

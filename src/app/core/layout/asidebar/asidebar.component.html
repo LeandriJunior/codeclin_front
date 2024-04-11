@@ -3,11 +3,12 @@
     <div class="col-12 flex justify-content-between align-items-center">
       <p-avatar styleClass="cursor-pointer" size="normal" shape="circle"
         [appAtalhoEvento]="'Tab'" [shift]="true" [style]="{'background-color':'#EFF3F8', 'color': '#078985'}"><span class="material-symbols-outlined"> person</span></p-avatar>
-      <p class="font-semibold font-lg">teste</p>
+      <p class="font-semibold font-lg">{{funcionario}}</p>
       <span class="material-symbols-outlined cursor-pointer" (click)="toggleMenuConfiguracoes()">
         manufacturing
       </span>
     </div>
     <p-divider></p-divider>
+    <p-button styleClass="p-button p-button-text" (click)="logout()">Sair</p-button>
   </div>
 </p-sidebar>

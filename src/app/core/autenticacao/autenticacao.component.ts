@@ -72,8 +72,9 @@ export class AutenticacaoComponent implements OnInit {
           if(dados.status){
             console.log(dados.data)
             if(dados?.data){
-              this.tokenService.setToken(dados?.data)
-              this.router.navigate(['dashboard', 'vendas'])
+              this.tokenService.setToken(dados?.data?.token)
+              this.tokenService.setSessaoUsuario(dados?.data?.sessao)
+              this.router.navigate([dados?.data?.sessao?.tela_principal])
             }
           } else {
             this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível realizar o login. Tente novamente e caso persista o erro, contate o suporte.')
@@ -116,4 +117,6 @@ export class AutenticacaoComponent implements OnInit {
   redirectCadastro(){
     this.router.navigate(['cadastro'])
   }
+
+  
 }
