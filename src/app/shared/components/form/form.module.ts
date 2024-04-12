@@ -19,6 +19,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PickListModule } from 'primeng/picklist';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     PickListModule,
     InputGroupModule,
     InputGroupAddonModule,
-    SkeletonModule
+    SkeletonModule,
+    AutoCompleteModule
   ],
   exports: [
     FormComponent

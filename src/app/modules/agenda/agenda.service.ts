@@ -29,4 +29,11 @@ export class AgendaService {
             params: dados
           });
     }
+
+    filtrarPesquisa(data){
+        return this.http.get<any>(`${this.API_BACK}core/funcionario/pesquisar`, {
+            headers: this.headerService.getHeader(),
+            params: {'pesquisa': data}
+          });
+    }
 }

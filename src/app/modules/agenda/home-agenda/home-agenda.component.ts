@@ -21,7 +21,6 @@ import { CardModule } from 'primeng/card';
 import { ToastrService } from 'src/app/shared/components/toastr/toastr.service';
 
 
-
 @Component({
   selector: 'app-home-agenda',
   standalone: true,
@@ -34,6 +33,7 @@ import { ToastrService } from 'src/app/shared/components/toastr/toastr.service';
               DropdownModule,
               ButtonModule,
               CardModule,
+              
               ]],
   templateUrl: './home-agenda.component.html',
   styleUrl: './home-agenda.component.css',
@@ -44,7 +44,10 @@ export class HomeAgendaComponent{
   formularioCadastroAgenda: FormGroup;
   eventos_agenda:any = [];
   lista_funcionario: Array<items> = [];
-
+  lista_funcionario_filtrado: Array<items> = [];
+  lista_clientes: Array<items> = [];
+  funcionario_agendamento = ''
+  
   constructor(
     private changeDetector: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -57,12 +60,12 @@ export class HomeAgendaComponent{
       datetime_fim: [null],
       funcionario_agendamento: [null],
       cliente: [null],
-      dentista: [null],
+      funcionario: [null],
       descricao: [null],
     })
   }
 
- 
+  
 
   visible: boolean = false;
 
@@ -74,6 +77,9 @@ export class HomeAgendaComponent{
       this.visible = true;
   }
   
+  filtrarFuncionario(event: items){
+    console.log(event)
+  }
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     timeZone: 'UTC-3',
@@ -164,21 +170,31 @@ export class HomeAgendaComponent{
       dados => {
         if (dados.status){
           retorno = dados.evento
+          this.preencherComboBox(dados.evento)
         }else{
           this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
         }
       });
-      this.showDialog(retorno, clickInfo.event.startStr, clickInfo.event.endStr, )
+      this.showDialog(retorno, clickInfo.event.startStr, clickInfo.event.endStr)
       
   }
   handleEventsResize(event: EventApi){
     console.log(event)
   }
-
+  
   handleEvents(events: EventApi[]) {
     
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
+  }
+
+  onSearchChange(event){
+    this.agendaService.filtrarPesquisa(event).subscribe(res => {
+      if(res.status){
+        this.preencherComboPesquisa(res)
+      }
+      console.log(this.lista_funcionario_filtrado)
+    })
   }
 
   onSubmit(){
@@ -190,7 +206,6 @@ export class HomeAgendaComponent{
       'data_ini':data_ini,
       'data_fim': data_fim
     }
-    console.log(dados)
     this.agendaService.getEventosAgenda(dados).subscribe(
       dados => {
         if (dados.status){
@@ -202,6 +217,21 @@ export class HomeAgendaComponent{
           this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
         }
       });
-    }
+  }
   
+  preencherComboBox(data: any): void {
+    this.lista_funcionario = data.lista_funcionarios.map(valor => ({
+      value: valor.matricula,
+      label: valor.nm_completo
+    }))
+  }
+
+  preencherComboPesquisa(data:any){
+    console.log(data.lista_funcionarios)
+    this.lista_funcionario_filtrado = data.lista_funcionarios.map(valor => ({
+      label: valor.matricula,
+      value: valor.nm_completo 
+    }))
+    console.log(this.lista_funcionario_filtrado)
+  }
 }

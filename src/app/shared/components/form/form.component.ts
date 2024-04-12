@@ -1,4 +1,4 @@
-import { Subscription, debounceTime } from 'rxjs';
+import { Observable, Subject, Subscription, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { Component, Input, OnInit, EventEmitter, Output, ViewChild, OnChanges, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { items } from "../../models/items.model";
@@ -38,8 +38,10 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
   @Input() slotChar: string;
   @Input() items: Array<items>;
   @Input() itemsSelecionados: Array<items> = [];
+  @Input() suggestions: Array<{code:number, name:string}> = [];
   @Input() opcoesPesquisa: any[];
   @Input() placeholder: string;
+  @Input() completeMethod: string;
   @Input() minDate: Date;
   @Input() maxDate: Date;
   @Input() maxLength: number;
@@ -59,6 +61,8 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
   @Output() pesquisar = new EventEmitter();
   @Output() modelChange = new EventEmitter();
 
+  @Output() changeSearch = new EventEmitter<string>();
+
   @ViewChild('rangeData') private rangeData: any;
   @ViewChild('overlayPesquisa') overlayPesquisa: OverlayPanel;
   @ViewChild('inputPesquisa') inputPesquisa: any;
@@ -73,7 +77,9 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
     this.minDateDefault = new Date(this.dayjs().subtract(7, 'days').toDate())
     this.maxDateDefault = new Date('2100-12-31')
   }
-
+  onSearch(pesquisa){
+    console.log(pesquisa)
+  }
   ngOnInit(): void {
     if(this.formControlName && this.parentFormGroup.form){
       this.formGroup = this.parentFormGroup.form
@@ -119,6 +125,7 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
     }
   }
 
+
   ngOnChanges(): void {
     if (this.overlayPesquisa) {
       if (this.opcoesPesquisa.length) {
@@ -146,6 +153,7 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   onChangeHandler(ev): void {
+    console.log(ev)
     this.change.emit(ev)
   }
 
@@ -177,5 +185,9 @@ export class FormComponent implements OnInit, OnChanges, OnDestroy{
   onDualistChange() {
     this.formGroup.get(this.formControlName).setValue(this.itemsSelecionados.map(item => item?.value),
       {emitEvent: false});
+  }
+
+  filtrarFuncionario(value){
+    this.changeSearch.emit(value.query)    
   }
 }

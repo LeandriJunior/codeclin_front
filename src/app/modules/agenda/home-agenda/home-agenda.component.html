@@ -30,48 +30,53 @@
       <div class="grid">
         <div class="field col-4 lg:col-4">
           <div class="w-100">
-              <app-form label="Nome do paciente" type="select" 
-                        formControlName="cliente_nome" 
-                        [required]="true" 
-                        ngDefaultControl 
-                        erro="Digite o nome do Paciente" />
+              <app-form label="Nome do dentista" 
+                        type="select-pesquisa" 
+                        [suggestions]="lista_funcionario_filtrado"
+                        formControlName="funcionario" 
+                        ngDefaultControl
+                        (changeSearch)="onSearchChange($event)" 
+                        erro="Digite o nome do Dentista" />
           </div>
         </div>
         <div class="field col-4 lg:col-4">
           <div class="w-100">
-              <app-form label="Nome do dentista" type="select" 
-                        formControlName="dentista" 
+              <app-form label="Nome do dentista" 
+                        type="select" 
+                        formControlName="funcionario" 
                         [required]="true" 
                         ngDefaultControl 
+                        [items]="lista_funcionario"
                         erro="Digite o nome do Dentista" />
           </div>
         </div>
         <div class="field col-4">
           <div class="w-100">
-            <app-form label="Funcionarios Agendamento" type="text"
-                      formControlName="funcionario_agendamento"
-                      placeholder="Selecione"
-                      ngDefaultControl
-                      [readonly] = true
-                      erro="Descrição para campo inválido" />
+              <app-form label="Funcionario Agendamento" type="text"
+                        formControlName="funcionario_agendamento"
+                        placeholder="Selecione"
+                        ngDefaultControl
+                        [readonly] = true
+                        [items]="funcionario_agendamento"
+                        erro="Descrição para campo inválido" />
           </div>
         </div>
         <div class="field col-6">
           <div class="w-100">
-            <app-form type="date-time"
-              label="Data/Hora inicial" 
-              formControlName="datetime_ini"
-              ngDefaultControl
-              erro="Descrição para campo inválido" />
+              <app-form type="date-time"
+                        label="Data/Hora inicial" 
+                        formControlName="datetime_ini"
+                        ngDefaultControl
+                        erro="Descrição para campo inválido" />
           </div>
         </div>
         <div class="field col-6">
           <div class="w-100">
-            <app-form type="date-time"
-              label="Data/Hora final" 
-              formControlName="datetime_fim"
-              ngDefaultControl
-              erro="Descrição para campo inválido" />
+              <app-form type="date-time"
+                        label="Data/Hora final" 
+                        formControlName="datetime_fim"
+                        ngDefaultControl
+                        erro="Descrição para campo inválido" />
           </div>
         </div>  
         <div class="field col-12 lg:col-12">
@@ -85,11 +90,11 @@
         </div>
         <div class="field col-12">
           <div class="w-100">
-            <app-form type="textarea"
-              label="Observacao" 
-              formControlName="observacao"
-              ngDefaultControl
-              erro="Descrição para campo inválido" />
+              <app-form type="textarea"
+                        label="Observacao" 
+                        formControlName="observacao"
+                        ngDefaultControl
+                        erro="Descrição para campo inválido" />
           </div>
         </div>  
       </div>
