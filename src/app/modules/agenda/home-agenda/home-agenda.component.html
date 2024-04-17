@@ -30,20 +30,20 @@
       <div class="grid">
         <div class="field col-4 lg:col-4">
           <div class="w-100">
-              <app-form label="Nome do dentista" 
-                        type="select-pesquisa" 
-                        [suggestions]="lista_funcionario_filtrado"
-                        formControlName="funcionario" 
-                        ngDefaultControl
-                        (changeSearch)="onSearchChange($event)" 
+              <app-form label="Nome do Cliente" 
+                        type="select" 
+                        formControlName="cliente_id" 
+                        [required]="true" 
+                        ngDefaultControl 
+                        [items]="lista_clientes"
                         erro="Digite o nome do Dentista" />
           </div>
         </div>
         <div class="field col-4 lg:col-4">
           <div class="w-100">
-              <app-form label="Nome do dentista" 
+              <app-form label="Nome do Funcionario" 
                         type="select" 
-                        formControlName="funcionario" 
+                        formControlName="funcionario_id" 
                         [required]="true" 
                         ngDefaultControl 
                         [items]="lista_funcionario"
@@ -65,23 +65,24 @@
           <div class="w-100">
               <app-form type="date-time"
                         label="Data/Hora inicial" 
-                        formControlName="datetime_ini"
+                        formControlName="data_ini"
                         ngDefaultControl
                         erro="Descrição para campo inválido" />
+
           </div>
         </div>
         <div class="field col-6">
           <div class="w-100">
               <app-form type="date-time"
                         label="Data/Hora final" 
-                        formControlName="datetime_fim"
+                        formControlName="data_fim"
                         ngDefaultControl
                         erro="Descrição para campo inválido" />
           </div>
         </div>  
         <div class="field col-12 lg:col-12">
           <div class="w-100">
-              <app-form label="Procedimento" type="select" 
+              <app-form label="Procedimento" type="text" 
                         formControlName="procedimento" 
                         [required]="true" 
                         ngDefaultControl 
@@ -91,7 +92,7 @@
         <div class="field col-12">
           <div class="w-100">
               <app-form type="textarea"
-                        label="Observacao" 
+                        label="Observação" 
                         formControlName="observacao"
                         ngDefaultControl
                         erro="Descrição para campo inválido" />

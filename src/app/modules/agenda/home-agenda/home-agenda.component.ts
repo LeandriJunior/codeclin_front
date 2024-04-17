@@ -44,7 +44,6 @@ export class HomeAgendaComponent{
   formularioCadastroAgenda: FormGroup;
   eventos_agenda:any = [];
   lista_funcionario: Array<items> = [];
-  lista_funcionario_filtrado: Array<items> = [];
   lista_clientes: Array<items> = [];
   funcionario_agendamento = ''
   
@@ -55,31 +54,33 @@ export class HomeAgendaComponent{
     private toastrService: ToastrService,
   ){
     this.formularioCadastroAgenda = this.formBuilder.group({
-      agenda_id: [null],
-      datetime_ini: [null],
-      datetime_fim: [null],
+      id: [null],
+      data_ini: [null],
+      data_fim: [null],
       funcionario_agendamento: [null],
-      cliente: [null],
-      funcionario: [null],
-      descricao: [null],
+      cliente_id: [null],
+      funcionario_id: [null],
+      procedimento: [null],
+      observacao: [null]
     })
   }
 
   
+  
+
+
 
   visible: boolean = false;
 
   dayjs = dayjs
-  showDialog(dados, data_ini, data_fim) {
+  showDialog(data_ini, data_fim) {
      
-      this.formularioCadastroAgenda.get('datetime_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
-      this.formularioCadastroAgenda.get('datetime_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
+      this.formularioCadastroAgenda.get('data_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
+      this.formularioCadastroAgenda.get('data_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
       this.visible = true;
   }
   
-  filtrarFuncionario(event: items){
-    console.log(event)
-  }
+
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     timeZone: 'UTC-3',
@@ -115,6 +116,8 @@ export class HomeAgendaComponent{
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    eventMouseEnter: (info) => {this.eventMouseEnter(info)},
+    eventMouseLeave: (info) => {this.eventMouseLeave(info)},
     datesSet: this.handleDatesSet.bind(this),
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -134,6 +137,13 @@ export class HomeAgendaComponent{
     this.getDadosAgenda(this.data_ini_agenda, this.data_fim_agenda)
 
   }
+  eventMouseEnter(info){
+    
+  }
+
+  eventMouseLeave(info){
+
+  }
 
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
@@ -147,36 +157,30 @@ export class HomeAgendaComponent{
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    this.showDialog('', selectInfo.startStr, selectInfo.endStr)
-    const title = ''
+    this.getDadosModal('')
+    this.showDialog( selectInfo.startStr, selectInfo.endStr)
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    var retorno;
-    this.agendaService.getEvento({'evento_id': clickInfo.event.id}).subscribe(
+    this.getDadosModal(clickInfo.event.id)
+    this.showDialog(clickInfo.event.startStr, clickInfo.event.endStr)
+      
+  }
+
+  getDadosModal(evento_id:string){
+    this.agendaService.getEvento({'evento_id': evento_id}).subscribe(
       dados => {
         if (dados.status){
-          retorno = dados.evento
+          this.formularioCadastroAgenda.patchValue(dados.evento.agenda)
           this.preencherComboBox(dados.evento)
         }else{
           this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
         }
       });
-      this.showDialog(retorno, clickInfo.event.startStr, clickInfo.event.endStr)
-      
   }
   handleEventsResize(event: EventApi){
     console.log(event)
@@ -188,17 +192,21 @@ export class HomeAgendaComponent{
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
 
-  onSearchChange(event){
-    this.agendaService.filtrarPesquisa(event).subscribe(res => {
-      if(res.status){
-        this.preencherComboPesquisa(res)
-      }
-      console.log(this.lista_funcionario_filtrado)
-    })
-  }
 
   onSubmit(){
-    console.log(this.formularioCadastroAgenda.value)
+    this.agendaService.salvarAgenda(this.formularioCadastroAgenda.value).subscribe(
+      dados => {
+        if(dados.status){
+          this.toastrService.mostrarToastrSuccess('Salvo com sucesso!')
+          this.formularioCadastroAgenda.reset()
+          this.visible = false;
+        }else {
+          this.toastrService.mostrarToastrWarning(dados.descricao ? dados.descricao : 'Erro ao salvar horario')
+        }
+      }, error => {
+        this.toastrService.mostrarToastrDanger('Tente novamente mais tarde ou verifique sua conexão com a internet, caso o problema persista, entre em contato com o suporte!')
+      }
+    )
   }
 
   getDadosAgenda(data_ini:any, data_fim:any){
@@ -224,14 +232,11 @@ export class HomeAgendaComponent{
       value: valor.matricula,
       label: valor.nm_completo
     }))
+
+    this.lista_clientes = data.lista_clientes.map(valor => ({
+      value: valor.id,
+      label: valor.nm_completo
+    }))
   }
 
-  preencherComboPesquisa(data:any){
-    console.log(data.lista_funcionarios)
-    this.lista_funcionario_filtrado = data.lista_funcionarios.map(valor => ({
-      label: valor.matricula,
-      value: valor.nm_completo 
-    }))
-    console.log(this.lista_funcionario_filtrado)
-  }
 }

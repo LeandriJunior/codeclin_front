@@ -36,4 +36,10 @@ export class AgendaService {
             params: {'pesquisa': data}
           });
     }
+
+    salvarAgenda(data){
+        return this.http.post<any>(`${this.API_BACK}clinica/agenda/evento`, data, {
+            headers: this.headerService.getHeader(),
+        })
+    }
 }

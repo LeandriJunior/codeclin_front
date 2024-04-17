@@ -278,12 +278,11 @@
   <div *ngIf="type === 'select-pesquisa'">
     <div class="p-fluid">
       <p-autoComplete class="w-full" [formControlName]="formControlName" ngDefaultControl
-      [suggestions]="suggestions" 
-      (completeMethod)="filtrarFuncionario($event)" 
-      field="cliente"></p-autoComplete>
+      [suggestions]="suggestions"
+      (completeMethod)="filtrarFuncionario($event)" ></p-autoComplete>
     </div>
   </div>
-  
+
   <div *ngIf="type === 'date'">
     <p-calendar [formControlName]="formControlName"
       [showIcon]="true" dateFormat="dd/mm/yy" dataType="string" appendTo="body"
