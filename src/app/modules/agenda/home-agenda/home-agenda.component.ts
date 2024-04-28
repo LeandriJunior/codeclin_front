@@ -61,7 +61,9 @@ export class HomeAgendaComponent{
       cliente_id: [null],
       funcionario_id: [null],
       procedimento: [null],
-      observacao: [null]
+      observacao: [null],
+      status: [null],
+      is_concluido: [null]
     })
   }
  
@@ -211,12 +213,13 @@ export class HomeAgendaComponent{
     this.agendaService.getEventosAgenda(dados).subscribe(
       dados => {
         if (dados.status){
+          console.log(dados.agenda)
           this.calendarOptions.update((options) => ({
             ...options,
             events: dados.agenda,
           }));
         }else{
-          this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agebda. Tente novamente e caso persista o erro, contate o suporte.')
+          this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível carregar dados da agenda. Tente novamente e caso persista o erro, contate o suporte.')
         }
       });
   }
@@ -234,6 +237,24 @@ export class HomeAgendaComponent{
   }
   
   
+  changeStatus(){
+    var data = {
+      'id': this.formularioCadastroAgenda.get('id').value,
+      'status': this.formularioCadastroAgenda.get('status').value,
+    }
 
+    console.log(data)
+    this.agendaService.changeStatusAgenda(data).subscribe(
+      dados => {
+        if (dados.status){
+
+        } else { 
+          this.toastrService.mostrarToastrDanger(dados.descricao ? dados.descricao : 'Não foi possível mudar o status do evento. Tente novamente e caso persista o erro, contate o suporte.')
+        }
+      },
+      error => {}
+      
+    )
+  }
  
 }
