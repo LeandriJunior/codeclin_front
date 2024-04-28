@@ -64,17 +64,13 @@ export class HomeAgendaComponent{
       observacao: [null]
     })
   }
-
-  
-  
-
-
-
+ 
   visible: boolean = false;
-
+  eventInfoVisible: boolean = false;
+  currentEventInfo: any;
   dayjs = dayjs
   showDialog(data_ini, data_fim) {
-     
+      this.formularioCadastroAgenda.reset()
       this.formularioCadastroAgenda.get('data_ini').setValue(this.dayjs(data_ini).format('DD/MM/YYYY HH:mm:ss'))
       this.formularioCadastroAgenda.get('data_fim').setValue(this.dayjs(data_fim).format('DD/MM/YYYY HH:mm:ss'))
       this.visible = true;
@@ -116,8 +112,6 @@ export class HomeAgendaComponent{
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-    eventMouseEnter: (info) => {this.eventMouseEnter(info)},
-    eventMouseLeave: (info) => {this.eventMouseLeave(info)},
     datesSet: this.handleDatesSet.bind(this),
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
@@ -198,8 +192,8 @@ export class HomeAgendaComponent{
       dados => {
         if(dados.status){
           this.toastrService.mostrarToastrSuccess('Salvo com sucesso!')
-          this.formularioCadastroAgenda.reset()
           this.visible = false;
+          this.getDadosAgenda(this.data_ini_agenda, this.data_fim_agenda)
         }else {
           this.toastrService.mostrarToastrWarning(dados.descricao ? dados.descricao : 'Erro ao salvar horario')
         }
@@ -238,5 +232,8 @@ export class HomeAgendaComponent{
       label: valor.nm_completo
     }))
   }
+  
+  
 
+ 
 }
